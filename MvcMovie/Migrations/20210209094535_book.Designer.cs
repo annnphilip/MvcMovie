@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MvcMovie.Data;
 
 namespace MvcMovie.Migrations
 {
     [DbContext(typeof(MvcMovieContext))]
-    partial class MvcMovieContextModelSnapshot : ModelSnapshot
+    [Migration("20210209094535_book")]
+    partial class book
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,61 +31,15 @@ namespace MvcMovie.Migrations
                     b.Property<string>("Author")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AuthorInfoId")
-                        .HasColumnType("int");
-
                     b.Property<string>("BookName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("Bookdetails_Id")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DetailsId")
-                        .HasColumnType("int");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("id");
 
-                    b.HasIndex("AuthorInfoId");
-
-                    b.HasIndex("Bookdetails_Id");
-
                     b.ToTable("Book");
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.BookAuthor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AuthorName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BookAuthor");
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.Bookvalues", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("No_Pages")
-                        .HasColumnType("int");
-
-                    b.Property<int>("No_chapter")
-                        .HasColumnType("int");
-
-                    b.HasKey("id");
-
-                    b.ToTable("Bookvalues");
                 });
 
             modelBuilder.Entity("MvcMovie.Models.Movie", b =>
@@ -112,17 +68,6 @@ namespace MvcMovie.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Movie");
-                });
-
-            modelBuilder.Entity("MvcMovie.Models.Book", b =>
-                {
-                    b.HasOne("MvcMovie.Models.BookAuthor", "AuthorInfo")
-                        .WithMany()
-                        .HasForeignKey("AuthorInfoId");
-
-                    b.HasOne("MvcMovie.Models.Bookvalues", "Details")
-                        .WithMany()
-                        .HasForeignKey("Bookdetails_Id");
                 });
 #pragma warning restore 612, 618
         }
